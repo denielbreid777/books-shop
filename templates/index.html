@@ -36,6 +36,13 @@
 </head>
 <body>
 
+  <a href="/add_book"> <button>Add book</button></a>
+
+  {% if msg %}
+      <p style="color: green; font-weight: bold;">
+        {{ msg }}
+      </p>
+  {% endif %}
 
 
   <h3>Список книг</h3>
