@@ -78,6 +78,12 @@ def edit():
 
         return render_template("edit.html", book=book_to_edit, old_title=title_to_edit,  categories = sorted(set(book.category for book in book_list).union(custom_categories)))
 
+@app.route("/delete")
+def delete():
+    for book in book_list:
+        if book.title == request.args.get("title"):
+            book_list.remove(book)
+    return redirect(url_for("home"))
 
 
 
