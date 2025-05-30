@@ -52,6 +52,20 @@ def home():
 
 
 
+@app.route("/add_category", methods=["GET"])
+def add_category():
+    category_name = request.args.get("name")
+    
+    if category_name:
+        if category_name not in custom_categories:
+            custom_categories.append(category_name)
+            return redirect(url_for("home", msg=f"Категория '{category_name}' добавлена!"))
+        else:
+            return redirect(url_for("home", msg=f"Категория '{category_name}' уже существует!"))
+    else:
+        return redirect(url_for("home", msg="Введите название категории!"))
+
+
 
 
 

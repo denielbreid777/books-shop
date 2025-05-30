@@ -36,6 +36,25 @@
 </head>
 <body>
 
+  <h2>Фільтр за категорією</h2>
+
+  <form action="/">
+    <select name="category">
+      <option value="all" {% if selected_category == 'all' %}selected{% endif %}>Усі</option>
+      {% for category in categories %}
+        <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>
+          {{ category }}
+        </option>
+      {% endfor %}
+    </select>
+    <button type="submit">Фільтрувати</button>
+  </form>
+
+  <h3>Добавить категорию</h3>
+  <form method="GET" action="/add_category">
+    <input type="text" name="name" placeholder="Новая категория">
+    <button type="submit">Добавить</button>
+  </form>
 
 
   <h3>Список книг</h3>
