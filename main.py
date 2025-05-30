@@ -50,6 +50,33 @@ def home():
 
     return render_template("index.html", books=filtered_books, categories=categories, selected_category=selected_category, msg=msg)
 
+@app.route("/edit", methods=['POST', 'GET']) 
+def edit():
+    new_title = request.form.get("title")
+    new_author = request.form.get("author")
+    new_category = request.form.get("category")
+    old_title_value = request.form.get("old_title")
+
+
+    if new_title and new_author and new_category and old_title_value:
+        for book in book_list:
+            if book.title == old_title_value:
+                book.title = new_title
+                book.author = new_author
+                book.category = new_category
+                return redirect(url_for("home", msg=f"Книга '{new_title}' оновлена"))
+
+    if request.args.get("title"):
+        title_to_edit = request.args.get("title")
+        book_to_edit = None
+
+        for book in book_list:
+            if book.title == title_to_edit:
+                book_to_edit = book
+                break 
+
+
+        return render_template("edit.html", book=book_to_edit, old_title=title_to_edit,  categories = sorted(set(book.category for book in book_list).union(custom_categories)))
 
 
 
