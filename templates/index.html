@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Список книг</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    select, button {
+      padding: 6px 12px;
+      font-size: 16px;
+    }
+
+    table {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    .actions button {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+
+
+  <h3>Список книг</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Назва</th>
+        <th>Автор</th>
+        <th>Категорія</th>
+        <th>Дії</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+        <tr>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.category }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</body>
+</html>
