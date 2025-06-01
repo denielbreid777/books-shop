@@ -100,6 +100,24 @@ def add_category():
         return redirect(url_for("home", msg="Введите название категории!"))
 
 
+@app.route("/search")
+def search():
+    name = request.args.get("name")
+    if name:
+        name = name.strip().lower()
+    else:
+        name = ""
+
+        
+    if name:
+        for book in book_list:
+            if name == book.title.lower() or name == book.author.lower():
+                return render_template("search.html", book=book)
+
+        return render_template("search.html", book=None, msg="Ничего не найдено")
+
+    return render_template("search.html", book=None)
+
 
 
 
