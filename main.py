@@ -119,6 +119,20 @@ def search():
     return render_template("search.html", book=None)
 
 
+@app.route("/add_book")
+def add_book():
+    name = request.args.get("name")
+    author = request.args.get("author")
+    category = request.args.get("category")
+
+    if name and author and category:
+        book_list.append(Book(name, author, category))
+        return redirect(url_for("home", msg=name))
+
+    return render_template("add_book.html", categories = sorted(set(book.category for book in book_list).union(custom_categories)))
+
+
+
 
 
 
