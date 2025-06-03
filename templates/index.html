@@ -68,6 +68,12 @@
 
   <a href="/search"> <button>Поиск</button></a>
 
+  <h3>Фільтр по роках</h3>
+  <form action="/filter_by_year" method="get">
+    <input type="number" name="from" placeholder="Від року" required>
+    <input type="number" name="to" placeholder="До року" required>
+    <button type="submit">Пошук</button>
+  </form>
 
 
   <h2>Поиск</h2>
@@ -76,42 +82,39 @@
     <button type="submit" >Search</button></a>
   </form>
 
-
-  <h3>Список книг</h3>
-  <table>
-    <thead>
+<h3>Список книг</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Назва</th>
+      <th>Автор</th>
+      <th>Категорія</th>
+      <th>Рік</th>  
+      <th>Дії</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
       <tr>
-        <th>Назва</th>
-        <th>Автор</th>
-        <th>Категорія</th>
-        <th>Дії</th>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.category }}</td>
+        <td>{{ book.year }}</td>  
+        <td class="actions">
+          <form action="/edit"> 
+            <input type="hidden" name="title" value="{{ book.title }}">
+            <button type="submit">Edit</button>
+          </form>
+
+          <form action="/delete"> 
+            <input type="hidden" name="title" value="{{ book.title }}">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      {% for book in books %}
-        <tr>
-          <td>{{ book.title }}</td>
-          <td>{{ book.author }}</td>
-          <td>{{ book.category }}</td>
-
-          <td class="actions">
-            <form action="/edit"> 
-              <input type="hidden" name="title" value="{{book.title}}">
-              <button type="submit" >Edit</button></a>
-            </form>
-
-            <form action="/delete"> 
-              <input type="hidden" name="title" value="{{book.title}}">
-              <button type="submit" >Delete</button></a>
-            </form>
-
-
-          </td>
-
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    {% endfor %}
+  </tbody>
+</table>
 
 </body>
 </html>

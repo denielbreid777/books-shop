@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Book</title>
 </head>
 <body>
-    
-
     <form action="/edit" method="post">
-        <input type="hidden" name="old_title" value="{{old_title}}">
+        <input type="hidden" name="old_title" value="{{ old_title }}">
 
-        
-        <input type="text" name="title" placeholder="Book title">
-        <input type="text" name="author" placeholder="Book author">
+        <input type="text" name="title" placeholder="Book title" value="{{ book.title }}">
+        <input type="text" name="author" placeholder="Book author" value="{{ book.author }}">
 
         <select name="category">
         {% for cat in categories %}
-            <option value="{{ cat }}">{{ cat }}</option>
+            <option value="{{ cat }}" {% if cat == book.category %}selected{% endif %}>{{ cat }}</option>
         {% endfor %}
         </select>
 
-        <button type="submit"> Add </button><br>
+        <input type="number" name="year" placeholder="Year" value="{{ book.year }}">
 
+        <button type="submit"> Save </button><br>
     </form>
 </body>
 </html>

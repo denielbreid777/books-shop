@@ -3,42 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Search Book</title>
 </head>
 <body>
     
-    {%if book%}
+    {% if book %}
         <table>
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Author</th>
                     <th>Category</th>
+                    <th>Year</th>  
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <td>{{book.title}}</td>
-                    <td>{{book.author}}</td>
-                    <td>{{book.category}}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.category }}</td>
+                    <td>{{ book.year }}</td>  
                 </tr>
             </tbody>
         </table>
 
-    {%else%}
+    {% else %}
         <form action="/search"> 
             <input type="text" name="name" placeholder="Book name or author">
-            <button type="submit" >Search</button></a>
+            <button type="submit">Search</button>
         </form>
     {% endif %}
 
-    {%if msg%}
-        <h1>{{msg}}</h1>
+    {% if msg %}
+        <h1>{{ msg }}</h1>
     {% endif %}
-
-
-
 
 </body>
 </html>
