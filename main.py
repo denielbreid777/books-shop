@@ -160,17 +160,6 @@ def filter_by_year():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
 
