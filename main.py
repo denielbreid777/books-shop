@@ -5,34 +5,35 @@ app = Flask(__name__)
 
 
 class Book:
-    def __init__(self, title, author, category, year):
+    def __init__(self, title, author, category, year, description):
         self.title = title
         self.author = author
         self.category = category
         self.year = year
+        self.description = description
 
 
 book_list = [
-    Book("1984", "George Orwell", "Dystopian", 1949),
-    Book("To Kill a Mockingbird", "Harper Lee", "Classic", 1960),
-    Book("The Great Gatsby", "F. Scott Fitzgerald", "Classic", 1925),
-    Book("Brave New World", "Aldous Huxley", "Dystopian", 1932),
-    Book("Moby Dick", "Herman Melville", "Adventure", 1851),
-    Book("Pride and Prejudice", "Jane Austen", "Romance", 1813),
-    Book("The Hobbit", "J.R.R. Tolkien", "Fantasy", 1937),
-    Book("Fahrenheit 451", "Ray Bradbury", "Dystopian", 1953),
-    Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Fantasy", 1997),
-    Book("The Catcher in the Rye", "J.D. Salinger", "Classic", 1951),
-    Book("The Lord of the Rings", "J.R.R. Tolkien", "Fantasy", 1954),
-    Book("Crime and Punishment", "Fyodor Dostoevsky", "Philosophical", 1866),
-    Book("The Brothers Karamazov", "Fyodor Dostoevsky", "Philosophical", 1880),
-    Book("War and Peace", "Leo Tolstoy", "Historical", 1869),
-    Book("Anna Karenina", "Leo Tolstoy", "Romance", 1877),
-    Book("The Alchemist", "Paulo Coelho", "Adventure", 1988),
-    Book("The Picture of Dorian Gray", "Oscar Wilde", "Gothic", 1890),
-    Book("The Martian", "Andy Weir", "Science Fiction", 2011),
-    Book("Dune", "Frank Herbert", "Science Fiction", 1965),
-    Book("Dracula", "Bram Stoker", "Gothic", 1897),
+    Book("1984", "George Orwell", "Dystopian", 1949, "ZZZ"),
+    Book("To Kill a Mockingbird", "Harper Lee", "Classic", 1960, "ZZZ"),
+    Book("The Great Gatsby", "F. Scott Fitzgerald", "Classic", 1925, "ZZZ"),
+    Book("Brave New World", "Aldous Huxley", "Dystopian", 1932, "ZZZ"),
+    Book("Moby Dick", "Herman Melville", "Adventure", 1851, "ZZZ"),
+    Book("Pride and Prejudice", "Jane Austen", "Romance", 1813, "ZZZ"),
+    Book("The Hobbit", "J.R.R. Tolkien", "Fantasy", 1937, "ZZZ"),
+    Book("Fahrenheit 451", "Ray Bradbury", "Dystopian", 1953, "ZZZ"),
+    Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Fantasy", 1997, "ZZZ"),
+    Book("The Catcher in the Rye", "J.D. Salinger", "Classic", 1951, "ZZZ"),
+    Book("The Lord of the Rings", "J.R.R. Tolkien", "Fantasy", 1954, "ZZZ"),
+    Book("Crime and Punishment", "Fyodor Dostoevsky", "Philosophical", 1866, "ZZZ"),
+    Book("The Brothers Karamazov", "Fyodor Dostoevsky", "Philosophical", 1880, "ZZZ"),
+    Book("War and Peace", "Leo Tolstoy", "Historical", 1869, "ZZZ"),
+    Book("Anna Karenina", "Leo Tolstoy", "Romance", 1877, "ZZZ"),
+    Book("The Alchemist", "Paulo Coelho", "Adventure", 1988, "ZZZ"),
+    Book("The Picture of Dorian Gray", "Oscar Wilde", "Gothic", 1890, "ZZZ"),
+    Book("The Martian", "Andy Weir", "Science Fiction", 2011, "ZZZ"),
+    Book("Dune", "Frank Herbert", "Science Fiction", 1965, "ZZZ"),
+    Book("Dracula", "Bram Stoker", "Gothic", 1897, "ZZZ"),
 ]
 
 
@@ -68,16 +69,18 @@ def edit():
     new_author = request.form.get("author")
     new_category = request.form.get("category")
     new_year = request.form.get("year")
+    new_description = request.form.get("description")
     old_title_value = request.form.get("old_title")
 
 
-    if new_title and new_author and new_category and new_year and old_title_value:
+    if new_title and new_author and new_category and new_year and new_description and old_title_value:
         for book in book_list:
             if book.title == old_title_value:
                 book.title = new_title
                 book.author = new_author
                 book.category = new_category
                 book.year = int(new_year)
+                book.description = new_description
                 return redirect(url_for("home", msg=f"Книга '{new_title}' оновлена"))
 
     if request.args.get("title"):
@@ -139,9 +142,10 @@ def add_book():
     author = request.args.get("author")
     category = request.args.get("category")
     year = request.args.get("year")
+    description = request.args.get("description")
 
-    if name and author and category and year:
-        book_list.append(Book(name, author, category, int(year)))
+    if name and author and category and year and description:
+        book_list.append(Book(name, author, category, int(year), description))
         return redirect(url_for("home", msg=name))
 
     return render_template("add_book.html", categories = sorted(set(book.category for book in book_list).union(custom_categories)))

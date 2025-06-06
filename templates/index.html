@@ -91,6 +91,7 @@
       <th>Категорія</th>
       <th>Рік</th>  
       <th>Дії</th>
+      <th>Опис</th>
     </tr>
   </thead>
   <tbody>
@@ -100,6 +101,7 @@
         <td>{{ book.author }}</td>
         <td>{{ book.category }}</td>
         <td>{{ book.year }}</td>  
+        <td>{{ book.description }}</td> 
         <td class="actions">
           <form action="/edit"> 
             <input type="hidden" name="title" value="{{ book.title }}">
